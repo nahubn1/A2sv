@@ -21,16 +21,13 @@ class Solution:
         i = 0
         while x+y <= m+n-2:
             i += 1
-            # print(x, y, direc)
             if self.in_mat((x, y), m, n):
                 diag_trav.append(mat[x][y])
-                # print(diag_trav)
             x0, y0 = x, y
             x = x0 + direc[0]
             y = y0 + direc[1]
             
             if self.in_mat((x0, y0), m, n) and not self.in_mat((x, y), m, n):
-                # print('now', x0, y0)
                 x += East[0]
                 y += East[1]
                 direc = SW if direc == NE else NE
