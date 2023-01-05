@@ -14,6 +14,6 @@ class Solution:
                     ray[1] += direc[1]
                     
                     if tuple(ray) in queens:
-                        killers.append(deepcopy(ray))
+                        killers.append(tuple(ray))
                         break
         return killers
