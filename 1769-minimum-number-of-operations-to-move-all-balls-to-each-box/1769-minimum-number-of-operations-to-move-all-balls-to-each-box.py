@@ -15,7 +15,6 @@ class Solution:
                 balls_after.append(balls_after[-1]+int(boxes[i+1]))
             else:
                 balls_after.append(0)
-        balls_after.reverse()
         
         moves_right = []
         for i in range(n):
@@ -27,9 +26,9 @@ class Solution:
         moves_left = []
         for i in range(n-1, -1, -1):
             if moves_left:
-                moves_left.append(moves_left[-1]+balls_after[i])
+                moves_left.append(moves_left[-1]+balls_after[n-i-1])
             else:
-                moves_left.append(balls_after[i])
+                moves_left.append(balls_after[n-i-1])
                 
         moves = []
         for i in range(n):
