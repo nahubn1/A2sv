@@ -1,23 +1,22 @@
 from itertools import cycle
-import numpy as np
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
-        mat = np.array(matrix)
+        m, n = len(matrix), len(matrix[0])
         output = []
-        directions = cycle(['R', 'D', 'L', 'U'])
-        m, n = mat.shape
-        for drcn in directions:
-            if drcn == 'R':
-                output += list(mat[0, :])
-                mat = mat[1:, :]
-            elif drcn == 'D':
-                output += list(mat[:,-1])
-                mat = mat[:, :-1]
-            elif drcn == 'L':
-                output += list(reversed(mat[-1, :]))
-                mat = mat[:-1, :]
-            else:
-                output += list(reversed(mat[:,0]))
-                mat = mat[:, 1:]
-            if len(output) == m*n:
-                return output
+        directions = cycle([(0, 1), (1, 0), (0, -1), (-1, 0)])
+        direc = next(directions)
+        step = 0
+        covered = set()
+        pos = [0, -1]
+        while step < m*n:
+            pos[0] += direc[0]
+            pos[1] += direc[1]
+            output.append(matrix[pos[0]][pos[1]])
+            covered.add(tuple(pos))
+            step += 1
+
+            if not(0 <= pos[0]+direc[0] < m) or not(0 <= pos[1]+direc[1] < n) or tuple([pos[0]+direc[0], pos[1]+direc[1]]) in covered:
+                direc = next(directions)
+
+        return output 
+
