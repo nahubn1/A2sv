@@ -11,5 +11,3 @@ class Solution:
                         maxLocal[i][j] = max(grid[k][l], maxLocal[i][j])
 
         return maxLocal
-
-        return []
