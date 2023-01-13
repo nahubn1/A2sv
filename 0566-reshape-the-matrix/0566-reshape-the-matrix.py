@@ -7,7 +7,6 @@ class Solution:
         
         reshaped = [[0]*c for i in range(r)]
         for i in range(r*c):
-            print(i)
             reshaped[i//c][i%c] = mat[i//n][i%n]
         
         return reshaped
