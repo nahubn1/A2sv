@@ -24,10 +24,7 @@ class Solution:
 
                         if r-c == 0:
                             d2_sum += grid[i+r][j+c]
-                # print(i, j)
-                # print(r_sum[0], r_sum[1], r_sum[2], c_sum[0], c_sum[1], c_sum[2], d1_sum, d2_sum)
-                # print(nums)
-                # print(len(nums) == 9 and min(nums) == 1 and max(nums) == 9)
+                            
                 if len(nums) == 9 and min(nums) == 1 and max(nums) == 9:
                     if r_sum[0]==r_sum[1]==r_sum[2]==c_sum[0]==c_sum[1]==c_sum[2]==d1_sum==d2_sum:
                         magic_box += 1
