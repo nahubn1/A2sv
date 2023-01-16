@@ -6,17 +6,21 @@ class Solution:
         directions = cycle([(0, 1), (1, 0), (0, -1), (-1, 0)])
         direc = next(directions)
         step = 0
-        covered = set()
-        pos = [0, -1]
+        i, j = 0, 0
         while step < m*n:
-            pos[0] += direc[0]
-            pos[1] += direc[1]
-            output.append(matrix[pos[0]][pos[1]])
-            covered.add(tuple(pos))
-            step += 1
 
-            if not(0 <= pos[0]+direc[0] < m) or not(0 <= pos[1]+direc[1] < n) or tuple([pos[0]+direc[0], pos[1]+direc[1]]) in covered:
+            if not(0 <= i+direc[0] < m) or not(0 <= j+direc[1] < n) or matrix[i+direc[0]][j+direc[1]] == '#':
                 direc = next(directions)
+            
+            output.append(matrix[i][j])
+            matrix[i][j] = '#'
+            
+            i += direc[0]
+            j += direc[1]
+            step += 1
+                                                                                                
 
         return output 
+               
+
 
