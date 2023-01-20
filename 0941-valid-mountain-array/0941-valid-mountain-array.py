@@ -1,18 +1,25 @@
 class Solution:
     def validMountainArray(self, arr: List[int]) -> bool:
-        slopes = []
-        for i in range(1, len(arr)):
-            if arr[i] > arr[i-1]:
-                slope = 1
-            elif arr[i] == arr[i-1]:
-                slope = 0
-            else:
-                slope = -1
+        slope = None
+        for i in range(len(arr)-1):
+            if slope is None:
+                if arr[i+1] > arr[i]:
+                    slope = 'UP'
+                else:
+                    return False
+            
+            if slope == 'UP':
+                if arr[i+1] < arr[i]:
+                    slope = 'DOWN'
+                elif arr[i+1] == arr[i]:
+                    return False
                 
-            if not(slopes and slopes[-1] == slope):
-                slopes.append(slope)
+            if slope == 'DOWN' and arr[i+1] >= arr[i]:
+                return False
+            
+        return slope == "DOWN"
                 
-        return slopes == [1, -1]
+                       
                 
                 
                 
