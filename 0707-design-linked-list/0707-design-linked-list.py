@@ -7,7 +7,7 @@ class Node:
 class MyLinkedList:
     def __init__(self):
         self.head = None
-        # self.print_list()
+        
     def get(self, index: int) -> int:
     
         curr_node =  self.get_node(index)
@@ -15,7 +15,6 @@ class MyLinkedList:
         if curr_node == -1:
             return -1
         
-        # self.print_list()
         return curr_node.value
     
     def get_node(self, index):
@@ -41,7 +40,6 @@ class MyLinkedList:
             new_node.next = self.head
             self.head = new_node
             
-        # self.print_list()
         
     def addAtTail(self, val: int) -> None:
         new_node = Node(val)
@@ -55,7 +53,6 @@ class MyLinkedList:
             last_node = last_node.next
             
         last_node.next = new_node
-        # self.print_list()
         
     def addAtIndex(self, index: int, val: int) -> None:
         new_node = Node(val)
@@ -68,20 +65,16 @@ class MyLinkedList:
                 new_node.next = prev_node.next
                 prev_node.next = new_node
         
-        # self.print_list()
         
     def deleteAtIndex(self, index: int) -> None:
-        # self.print_list()
         if index == 0 and self.head:
             self.head = self.head.next
         else:
             prev_node = self.get_node(index-1)
-            # print(prev_node.value, prev_node.next.value)
             if prev_node != -1:
                 if prev_node.next:
                     prev_node.next = prev_node.next.next
                     
-        # self.print_list()
         
     def print_list(self):
         ls = []
