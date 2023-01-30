@@ -14,11 +14,12 @@ class Solution:
         while True:
             front = node.next
             node.next = prev
-            prev = node
+            
             
             if not front:
                 break
                 
+            prev = node   
             node = front
         
         return node
