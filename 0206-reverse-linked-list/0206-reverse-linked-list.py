@@ -11,16 +11,11 @@ class Solution:
         prev = None
         node = head
         
-        while True:
+        while node:
             front = node.next
             node.next = prev
-            
-            
-            if not front:
-                break
-                
             prev = node   
             node = front
         
-        return node
+        return prev
                 
