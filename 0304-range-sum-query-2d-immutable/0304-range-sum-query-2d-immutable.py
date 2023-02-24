@@ -12,7 +12,7 @@ class NumMatrix:
                         matrix[i][j] += matrix[i-1][j]
                         
             self.matrix = matrix
-            print(matrix)
+            
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
         if row1 == 0 or col1 == 0:
             if row1 == 0 and col1 != 0:
