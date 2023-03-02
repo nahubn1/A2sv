@@ -5,6 +5,7 @@ class Solution:
 
         self.s[start], self.s[end] = self.s[end], self.s[start] 
         self.swap(start+1, end-1)
+        
     def reverseString(self, s: List[str]) -> None:
         """
         Do not return anything, modify s in-place instead.
