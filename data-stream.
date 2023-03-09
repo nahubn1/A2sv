@@ -1,0 +1,12 @@
+DISTANCE = 10
+1. [25,...] --> element 25 got added to the stream, not enough numbers to form triplet, nothing happens
+2. [25, 46,...] --> element 46 got added, nothing happens
+3. [25, 46, 31,...] --> element 31 got added, enough numbers to form triplet 
+but distance between some of them is greater than DISTANCE (e.g. abs(25 - 46) = 21 or abs(31 - 46) = 15)
+4. [25, 46, 31, 23,...] --> element 23 got added, there are enough numbers to form triplet
+and there is a triplet that satisfies our conditions, this triplet is (25, 31, 23),
+distance between any pair of this triplet doesn't exceed
+DISTANCE (abs(25 - 31) = 6, abs(25 - 23) = 2, abs(23 -31) = 8), 
+we return this triplet and remove these numbers from the stream
+After above operations stream becomes:
+5. [46,....] and so on
