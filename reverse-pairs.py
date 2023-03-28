@@ -1,4 +1,3 @@
-from sortedcontainers import SortedList
 class Solution:
     @staticmethod
     def merge(arr1, arr2):
