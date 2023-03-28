@@ -26,7 +26,6 @@ class Solution:
             left = mergedSort(start, middle)
             right = mergedSort(middle+1, end)
 
-            lcount = 0
             ptr1 = len(left)-1
             ptr2 = len(right)-1
             while ptr1 >= 0:
