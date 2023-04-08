@@ -1,0 +1,9 @@
+n = int(input())
+roads = 0
+for i in range(n):
+    row = list(map(int, input().split()))
+    for j in range(i, n):
+        if row[j] == 1:
+            roads += 1
+        
+print(roads)
