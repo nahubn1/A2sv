@@ -1,20 +1,26 @@
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        graph = defaultdict(list)
-        for i, j in edges:
-            graph[i].append(j)
-            graph[j].append(i)
+        rep = {i: i for i in range(n)}
+        def find(x):
+            if x == rep[x]:
+                return x
+            
+            rep[x] = find(rep[x])
+            return rep[x]
         
-        def dfs():
-            visited = set()
-            stack = [source]
-            while stack:        
-                if stack[-1] == destination:
-                    return True
+        rank = [1]*n 
+        def union(u, v):
+            rep_u = find(u)
+            rep_v = find(v)
 
-                for nieghbor in graph[stack.pop()]:
-                    if nieghbor not in visited:
-                        visited.add(nieghbor)
-                        stack.append(nieghbor)
-                    
-        return dfs()
+            if rank[rep_u] > rank[rep_v]:
+                rep[rep_v] = rep_u
+                rank[rep_u] += rank[rep_v]
+            else:
+                rep[rep_u] = rep_v
+                rank[rep_v] += rank[rep_u]
+        
+        for u, v in edges:
+            union(u, v)
+        
+        return find(source) == find(destination)
