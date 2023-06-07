@@ -1,0 +1,46 @@
+class Solution:
+    def minDays(self, bloomDay: List[int], m: int, k: int) -> int:
+        n = len(bloomDay)
+        rep = {i:i for i in range(n)}
+        
+        def find(x):
+            if rep[x] == x:
+                return x
+            
+            rep[x] = find(rep[x])
+            return rep[x]
+
+        rank = defaultdict(lambda:1)
+        def union(cell_1, cell_2):
+            rep1, rep2 = find(cell_1), find(cell_2)
+
+            if rep1 != rep2:
+                if rank[rep1] > rank[rep2]:
+                    rep[rep2] = rep1
+                    rank[rep1] += rank[rep2]
+
+                else:
+                    rep[rep1] = rep2
+                    rank[rep2] += rank[rep1]
+            
+        flowers = sorted(range(n), key = lambda x:bloomDay[x])
+        bouquets = 0
+        blommed = [0]*n
+        for f in flowers:    
+            blommed[f] = 1
+            
+            left_r = 0
+            if f - 1 >= 0 and blommed[f-1]:
+                left_r = rank[find(f-1)]
+                union(f-1, f)
+
+            right_r = 0
+            if f + 1 < n and blommed[f+1]:
+                right_r = rank[find(f+1)]
+                union(f+1, f)
+        
+            bouquets += rank[find(f)]//k - left_r//k - right_r//k
+            if bouquets == m:
+                return bloomDay[f]
+
+        return -1 
