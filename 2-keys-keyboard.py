@@ -1,14 +1,14 @@
 class Solution:
     def minSteps(self, n: int) -> int:
-        primes = [0]
-        d = 2 
-        while d*d <= n:
-            while n%d == 0:
-                primes.append(d)
-                n //= d
-            d += 1
+        
+        @cache
+        def dp(count, copy):
+            if count == n:
+                return 0
 
-        if n > 1:
-            primes.append(n)
+            if count > n:
+                return inf
 
-        return sum(primes)
+            return min(2+dp(2*count, count), 1+dp(count+copy, copy) if copy else inf)  
+       
+        return dp(1, 0)
