@@ -1,31 +1,14 @@
 class Solution:
     def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
-        inDegree = [0]*numCourses
-        graph = defaultdict(list)
 
-        for a, b in prerequisites:
-            graph[a].append(b)
-            inDegree[b] += 1
+        pre_req = [[False]*numCourses for _ in range(numCourses)]
 
-        que = deque() 
-        for i in range(numCourses):
-            if inDegree[i] == 0:
-                que.append(i)
+        for u, v in prerequisites:
+            pre_req[u][v] = True
         
-        ans = [set() for _ in range(numCourses)]
-        while que:
-            node = que.popleft()
-            
-            for child in graph[node]:
-                ans[child].add(node)
-                ans[child] = ans[child].union(ans[node])
-
-                inDegree[child] -= 1
-                if inDegree[child] == 0:
-                    que.append(child)
-
-        answer = []
-        for u, v in queries:
-            answer.append(u in ans[v])
-            
-        return answer
+        for k in range(numCourses):
+            for i in  range(numCourses):
+                for j in range(numCourses):
+                    pre_req[i][j] = pre_req[i][j] or (pre_req[i][k] and pre_req[k][j])
+        
+        return [pre_req[u][v] for u, v in queries]
