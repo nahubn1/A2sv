@@ -1,20 +1,11 @@
-class TrieNode:
-    def __init__(self, val):
-        self.val = val
-        self.children = []
-    def create_children(self):
-        for i in range(0 if self.val else 1, 10):
-            self.children.append(TrieNode(self.val*10 + i))
-
 class Solution:
     def findKthNumber(self, n: int, k: int) -> int:
-        root = TrieNode(0)
 
         def belowCount(num):
             if num == 0:
                 return n+1
             
-            mul = 1
+            mul = 10
             ans = 0
             while num*mul <= n:
                 l = num*mul
@@ -25,20 +16,18 @@ class Solution:
         
             return ans
 
-        
-        def dfs(node):           
-            nonlocal i
-            node.create_children()
+        def dfs(num, i):           
             if i == k:
-                return node.val
-            if i + belowCount(node.val) <= k:
-                i += belowCount(node.val)
-                return
+                return num
+            
+            bel_cnt = belowCount(num)
+
+            if k <= i + bel_cnt:
+                return dfs(num*10, i+1)
             else:
-                i += 1
-                for child in node.children:
-                    ans =  dfs(child)
-                    if ans:
-                        return ans
-        i = 0
-        return dfs(root)
+                if num+1 <= n:
+                    return dfs(num+1, i+bel_cnt+1)
+                else:
+                    return dfs(num//10 + 1, i+bel_cnt+1)
+        
+        return dfs(1, 1)
