@@ -1,22 +1,20 @@
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        if sum(cost) > sum(gas):
-            return -1
         n = len(gas)
-        
-        upper = [0]*n
-        lower = [0]*n
+        diff = [gas[i] - cost[i] for i in range(n)]
 
-        upper[0] = gas[0]
-        for i in range(1, n):
-            lower[i] = upper[i-1] - cost[i-1]
-            upper[i] = lower[i] + gas[i]
-
-            # print(i, upper, lower)
-        
-        lowest = -min(lower)
+        minn = inf
+        rSum = 0
+        for num in diff:
+            rSum += num
+            minn = min(minn, rSum)
+        if rSum < 0:
+            return -1
+            
         for i in range(n):
-            if gas[i] - upper[i] >= lowest:
+            if minn >= 0:
                 return i
+            
+            minn -= diff[i]
         
         return -1
