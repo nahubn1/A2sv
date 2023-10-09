@@ -6,24 +6,22 @@
 #         self.right = right
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
-        self.count = 0
-        self.hashmap = defaultdict(int)
-        self.hashmap[0] = 1
+        count = defaultdict(int)
+        count[0] = 1
+        ans = 0
+        def dfs(node, currSum):
+            nonlocal ans
 
-        def countPath(node, rSum):
             if not node:
                 return
+
+            currSum += node.val
+            ans += count[currSum-targetSum]
+            count[currSum] += 1
             
-            rSum += node.val
-            self.count += self.hashmap[rSum - targetSum]
-            self.hashmap[rSum] += 1
+            dfs(node.left, currSum)
+            dfs(node.right, currSum)
+            count[currSum] -= 1      
 
-            countPath(node.right, rSum)
-            countPath(node.left, rSum)
-
-            self.hashmap[rSum] -= 1
-
-
-        countPath(root, 0)
-
-        return self.count
+        dfs(root, 0)
+        return ans
