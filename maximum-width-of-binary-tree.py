@@ -5,21 +5,20 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def register(self, node, n, level):
-        if not node:
-            return 
-        
-        self.levels[level].append(n)
-        self.register(node.left, 2*n, level+1)
-        self.register(node.right, 2*n+1, level+1)
-        
     def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        self.levels = defaultdict(list)
-        self.register(root, 1, 0)
         
-        max_width = 0
-        
-        for level in self.levels.values():
-            max_width = max(max_width, max(level)-min(level)+1)
-        
-        return int(max_width)
+        que = deque([(root, 1)])
+        ans = 0
+        while que:
+
+            ans = max(ans, 1 + max(que, key=lambda x:x[1])[1] - min(que, key=lambda x:x[1])[1])
+
+            for _ in range(len(que)):
+                node, i = que.popleft()
+
+                if node.left:
+                    que.append((node.left, 2*i))
+                if node.right:
+                    que.append((node.right, 2*i + 1))
+            
+        return ans
