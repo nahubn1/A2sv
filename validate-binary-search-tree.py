@@ -5,14 +5,16 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def check(self, root, left, right):
-        if not root:
-            return True
-        
-        if root.val <= left or root.val >= right:
-            return False
-
-        return self.check(root.left, left, root.val) and self.check(root.right, root.val, right)
-
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        return self.check(root, -inf, inf)
+
+        def dfs(node, minn, maxx):
+    
+            if not node:
+                return True
+            
+            if minn < node.val < maxx:
+                return dfs(node.left, minn, node.val) and dfs(node.right, node.val, maxx)
+            else:
+                return False
+        
+        return dfs(root, -inf, inf)
