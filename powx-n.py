@@ -1,18 +1,14 @@
 class Solution:
-    def pow(self, x, n):
-        if n == 0:
-            return 1
-        elif n == 1:
-            return x
-        else:
-            if n%2 == 0:
-                return self.pow(x*x, n/2)
-            else:
-                return x*self.pow(x*x, (n-1)/2)
-
     def myPow(self, x: float, n: int) -> float:
-        if n < 0:
-            n = -n
-            x = 1/x
+        postive = True if n > 0 else False
+        n = abs(n)
+
+        res = 1
+        base = x
+        for i in range(n.bit_length()):
+            if n & (1 << i) != 0:
+                res *= base
+            
+            base *= base
         
-        return self.pow(x, n)
+        return res if postive else 1/res
