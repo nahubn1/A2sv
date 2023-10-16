@@ -5,21 +5,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def search(self, node):
-        if not node:
-            return
-
-        self.search(node.left)
-        if self.idx < self.k:
-            self.idx += 1
-            self.value = node.val
-
-            self.search(node.right)
-
-
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        self.k = k
-        self.idx = 0
-        self.value = None
-        self.search(root)
-        return self.value
+        ans = -1
+
+        def dfs(start, node):
+            nonlocal ans
+
+            if not node:
+                return 0
+            
+            left = dfs(start, node.left)
+            i  = start + left
+            if i == k: ans = node.val
+            right = dfs(i+1, node.right)
+
+            return left+right+1
+        
+        dfs(1, root)
+        return ans
