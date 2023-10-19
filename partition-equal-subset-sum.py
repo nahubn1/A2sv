@@ -1,18 +1,16 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        if not nums:
-            return True
-            
-        memo = {}
-        def dp(i, k):
+        total = sum(nums)
+        if total % 2 == 1: return False
 
-            if (i, k) in memo:
-                return memo[(i, k)]
-            
-            if k < 0 or i < 0:
+        @cache
+        def dp(i, k):
+            if k < 0:
+                return False
+
+            if i == len(nums):
                 return k == 0
 
-            memo[(i, k)] =  dp(i-1, k) or dp(i-1, k - nums[i])
-            return memo[(i, k)]
+            return dp(i+1, k) or dp(i+1, k-nums[i])
         
-        return dp(len(nums)-1, sum(nums)/2)
+        return dp(0, total//2)
